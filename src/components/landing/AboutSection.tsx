@@ -1,11 +1,11 @@
 import { useRef, useEffect, useState } from "react";
-import { Headphones, Music, Mic2, Award } from "lucide-react";
+import Icon from '@/components/ui/icon';
 
 const achievements = [
-  { icon: <Headphones className="w-6 h-6" />, label: "Лет опыта", value: "10+" },
-  { icon: <Music className="w-6 h-6" />, label: "Созданных треков", value: "500+" },
-  { icon: <Mic2 className="w-6 h-6" />, label: "Коллабораций с артистами", value: "100+" },
-  { icon: <Award className="w-6 h-6" />, label: "Наград", value: "15+" },
+  { iconName: "Zap", label: "Лет в хардстайле", value: "5+" },
+  { iconName: "Music", label: "Релизов", value: "25+" },
+  { iconName: "Radio", label: "Платформ", value: "8" },
+  { iconName: "Headphones", label: "Прослушиваний", value: "50K+" },
 ];
 
 const AboutSection = () => {
@@ -57,23 +57,21 @@ const AboutSection = () => {
             <div className="w-full aspect-square bg-gradient-to-br from-zinc-800 to-zinc-900 rounded-3xl relative z-10 flex items-center justify-center">
               <div className="text-center p-8">
                 <div className="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
-                  <Music className="w-16 h-16 text-white" />
+                  <Icon name="Zap" size={64} className="text-white" />
                 </div>
-                <p className="text-zinc-400 text-lg">Фото продюсера</p>
+                <p className="text-zinc-400 text-lg">Хардстайл Продюсер</p>
               </div>
             </div>
           </div>
           <div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">О SoundForge</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">О моей музыке</h2>
             <p className="text-lg mb-6 text-zinc-300">
-              SoundForge — это не просто битмейкер, это звуковой архитектор, создающий саундскейпы
-              будущего. С десятилетним опытом и чутким слухом на инновации, SoundForge раздвигает
-              границы возможного в музыкальном продакшене.
+              Хардстайл — это моя стихия. Мощные кики, жёсткие басы, энергия на пределе.
+              Каждый трек — это часть моей души, запечатанная в звуке.
             </p>
             <p className="text-lg mb-8 text-zinc-300">
-              От хитов в чартах до андеграундных гимнов — универсальный стиль и внимание к деталям
-              гарантируют, что каждый бит — это не просто трек, а путешествие, ждущее правильного
-              артиста.
+              Я создаю музыку, которая заставляет двигаться, чувствовать, жить. Выбери свою платформу
+              и окунись в атмосферу хардстайла.
             </p>
             <div className="grid grid-cols-2 gap-6">
               {achievements.map((achievement, index) => (
@@ -85,7 +83,9 @@ const AboutSection = () => {
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >
                   <div className="flex items-center mb-2">
-                    <div className="mr-2 text-white">{achievement.icon}</div>
+                    <div className="mr-2 text-white">
+                      <Icon name={achievement.iconName} size={24} />
+                    </div>
                     <div className="text-2xl font-bold text-white">{achievement.value}</div>
                   </div>
                   <div className="text-sm text-zinc-400">{achievement.label}</div>

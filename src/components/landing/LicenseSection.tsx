@@ -1,72 +1,63 @@
 import { useState, useRef, useEffect } from "react";
-import { Check, X, Crown, Zap, Star, Globe } from "lucide-react";
+import Icon from '@/components/ui/icon';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-interface LicenseOption {
+interface Platform {
   name: string;
-  price: string;
-  icon: React.ReactNode;
-  features: string[];
-  notIncluded?: string[];
-  bulkDeal?: string;
-  popular?: boolean;
+  url: string;
+  iconName: string;
+  color: string;
 }
 
-const licenseOptions: LicenseOption[] = [
+const platforms: Platform[] = [
   {
-    name: "Стандартная лицензия",
-    price: "299 руб",
-    icon: <Star className="w-6 h-6" />,
-    features: [
-      "Использование для записи музыки",
-      "Распространение до 5 000 копий",
-      "75 000 онлайн-прослушиваний",
-      "1 музыкальный клип",
-      "Коммерческие выступления",
-      "Радиотрансляция (2 станции)",
-    ],
-    bulkDeal: "КУПИ 1 ТРЕК — ПОЛУЧИ 1 В ПОДАРОК!",
+    name: "Spotify",
+    url: "https://spotify.com",
+    iconName: "Music",
+    color: "from-green-500 to-green-600",
   },
   {
-    name: "Продвинутая лицензия",
-    price: "499 руб",
-    icon: <Zap className="w-6 h-6" />,
-    features: [
-      "Использование для записи музыки",
-      "Распространение до 10 000 копий",
-      "150 000 онлайн-прослушиваний",
-      "1 музыкальный клип",
-      "Коммерческие выступления",
-      "Радиотрансляция (без ограничений)",
-    ],
-    popular: true,
+    name: "YouTube Music",
+    url: "https://music.youtube.com",
+    iconName: "Youtube",
+    color: "from-red-500 to-red-600",
   },
   {
-    name: "Премиум лицензия",
-    price: "799 руб",
-    icon: <Crown className="w-6 h-6" />,
-    features: [
-      "Использование для записи музыки",
-      "Распространение до 20 000 копий",
-      "500 000 онлайн-прослушиваний",
-      "1 музыкальный клип",
-      "Только некоммерческие выступления",
-    ],
-    notIncluded: ["Без прав на радиотрансляцию"],
+    name: "Apple Music",
+    url: "https://music.apple.com",
+    iconName: "Music2",
+    color: "from-pink-500 to-rose-600",
   },
   {
-    name: "Коммерческая лицензия",
-    price: "899 руб",
-    icon: <Globe className="w-6 h-6" />,
-    features: [
-      "Использование для записи музыки",
-      "Неограниченное распространение",
-      "Неограниченные онлайн-прослушивания",
-      "Неограниченное количество клипов",
-      "Коммерческие выступления",
-      "Радиотрансляция (без ограничений)",
-    ],
+    name: "SoundCloud",
+    url: "https://soundcloud.com",
+    iconName: "Cloud",
+    color: "from-orange-500 to-orange-600",
+  },
+  {
+    name: "Deezer",
+    url: "https://deezer.com",
+    iconName: "Disc3",
+    color: "from-purple-500 to-purple-600",
+  },
+  {
+    name: "Yandex Music",
+    url: "https://music.yandex.ru",
+    iconName: "Radio",
+    color: "from-yellow-500 to-yellow-600",
+  },
+  {
+    name: "VK Music",
+    url: "https://vk.com/music",
+    iconName: "AudioWaveform",
+    color: "from-blue-500 to-blue-600",
+  },
+  {
+    name: "Bandcamp",
+    url: "https://bandcamp.com",
+    iconName: "Disc",
+    color: "from-cyan-500 to-cyan-600",
   },
 ];
 
@@ -102,17 +93,17 @@ const LicenseSection = () => {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
           }`}
         >
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white">Выбери свою лицензию</h2>
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white">Слушай на всех платформах</h2>
           <p className="text-xl text-zinc-400 max-w-2xl mx-auto">
-            Подбери идеальную лицензию под свои потребности и начни создавать потрясающую музыку уже
-            сегодня
+            Выбери свою любимую платформу и погружайся в мир хардстайла. Все треки доступны
+            на основных стриминговых сервисах.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {licenseOptions.map((option, index) => (
+          {platforms.map((platform, index) => (
             <div
-              key={option.name}
+              key={platform.name}
               className={`transition-all duration-500 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
               }`}
@@ -123,62 +114,19 @@ const LicenseSection = () => {
               <Card
                 className={`relative h-full bg-black border-white/10 ${
                   hoveredCard === index ? "scale-105" : "scale-100"
-                } transition-all duration-300`}
+                } transition-all duration-300 cursor-pointer`}
+                onClick={() => window.open(platform.url, '_blank')}
               >
                 <div className="absolute inset-0 rounded-lg p-[1px] bg-gradient-to-br from-white/20 to-white/0">
                   <div className="absolute inset-0 rounded-lg bg-black"></div>
                 </div>
 
-                {option.popular && (
-                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                    <span className="bg-white text-black px-4 py-1 rounded-full text-sm font-semibold animate-pulse">
-                      Популярный
-                    </span>
+                <CardContent className="relative p-8 rounded-lg h-full flex flex-col items-center justify-center text-center">
+                  <div className={`inline-flex p-4 rounded-full bg-gradient-to-br ${platform.color} mb-4`}>
+                    <Icon name={platform.iconName} size={32} className="text-white" />
                   </div>
-                )}
-
-                <CardContent className="relative p-6 rounded-lg h-full flex flex-col">
-                  <div className="text-center mb-6">
-                    <div className="inline-flex p-3 rounded-full bg-zinc-900 border border-white/10 mb-4">
-                      {option.icon}
-                    </div>
-                    <h3 className="text-xl font-bold mb-2 text-white">{option.name}</h3>
-                    <div className="text-3xl font-bold text-white">{option.price}</div>
-                  </div>
-
-                  <div className="flex-grow">
-                    <ul className="space-y-3 mb-6">
-                      {option.features.map((feature, i) => (
-                        <li key={i} className="flex items-start">
-                          <Check className="h-5 w-5 text-white mr-2 shrink-0 mt-0.5" />
-                          <span className="text-sm text-zinc-300">{feature}</span>
-                        </li>
-                      ))}
-                      {option.notIncluded?.map((feature, i) => (
-                        <li key={i} className="flex items-start text-zinc-500">
-                          <X className="h-5 w-5 text-zinc-500 mr-2 shrink-0 mt-0.5" />
-                          <span className="text-sm">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {option.bulkDeal && (
-                    <div className="mb-4">
-                      <p className="text-sm font-semibold text-white bg-white/5 py-2 px-3 rounded-lg border border-white/10 animate-pulse">
-                        {option.bulkDeal}
-                      </p>
-                    </div>
-                  )}
-
-                  <Button
-                    className="w-full bg-white text-black hover:bg-zinc-200 transition-colors"
-                    asChild
-                  >
-                    <a href="#" target="_blank" rel="noopener noreferrer">
-                      Выбрать
-                    </a>
-                  </Button>
+                  <h3 className="text-2xl font-bold text-white mb-2">{platform.name}</h3>
+                  <p className="text-sm text-zinc-400">Перейти на платформу</p>
                 </CardContent>
               </Card>
             </div>
